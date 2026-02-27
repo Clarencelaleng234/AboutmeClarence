@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Portfolio</title>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<style>
+
+/* ===== BODY ===== */
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#060912;
+    color:white;
+    overflow-x:hidden;
+    display:flex;
+    justify-content:center;
+}
+
+/* PARTICLE BACKGROUND */
+#particles{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:-1;
+}
+
+/* CONTAINER */
+.wrapper{
+    width:100%;
+    max-width:420px;
+    padding:40px 25px;
+    text-align:center;
+}
+
+/* HERO SPACING */
+.hero{
+    margin-top:40px;
+    margin-bottom:30px;
+}
+
+/* PROFILE */
+.profile img{
+    width:110px;
+    height:110px;
+    border-radius:50%;
+    border:2px solid #00ff9f;
+}
+
+.username{
+    margin-top:12px;
+    font-size:26px;
+    font-weight:600;
+}
+
+.tagline{
+    color:#00ff9f;
+    font-size:14px;
+}
+
+/* STATUS BADGE */
+.status{
+    margin-top:14px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 14px;
+    border-radius:20px;
+    background:#0b0f18;
+    border:1px solid rgba(255,255,255,0.2);
+    font-size:13px;
+}
+
+.status i{
+    color:#00ff9f;
+}
+
+/* SECTION TITLE */
+.section-title{
+    opacity:.6;
+    font-size:13px;
+    letter-spacing:2px;
+    margin:28px 0 10px;
+}
+
+/* CARD BUTTONS */
+.card{
+    background:#0b0f18;
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:14px;
+    padding:18px;
+    margin:14px 0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    transition:.25s;
+}
+
+.card:hover{
+    border-color:#00ff9f;
+    transform:translateY(-3px);
+}
+
+.card i{
+    font-size:18px;
+}
+
+/* LINKS */
+a{
+    text-decoration:none;
+    color:white;
+}
+
+/* FOOTER */
+.footer{
+    margin-top:35px;
+    font-size:12px;
+    opacity:.6;
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="particles"></canvas>
+
+<div class="wrapper">
+
+    <!-- HERO -->
+    <div class="hero">
+
+        <div class="profile">
+            <img src="https://i.imgur.com/4M34hi2.png">
+            <div class="username">@Cl4rencebycode</div>
+            <div class="tagline">Developer • Creator • Portfolio</div>
+
+            <!-- STATUS -->
+            <div class="status">
+                <i class="fa-solid fa-shield-halved"></i>
+                Secret Service
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ABOUT -->
+    <div class="section-title">ABOUT ME</div>
+    <div class="card">
+        <i class="fa-solid fa-user"></i>
+        <span>I build digital projects, explore technology, and create online experiences.</span>
+    </div>
+
+    <!-- PORTFOLIO -->
+    <div class="section-title">PORTFOLIO</div>
+
+    <!-- Codes button now opens codehub.html -->
+    <a href="codehub.html">
+        <div class="card">
+            <i class="fa-solid fa-code"></i>
+            Codes
+        </div>
+    </a>
+
+    <a href="https://roblox.com" target="_blank">
+        <div class="card">
+            <i class="fa-solid fa-gamepad"></i>
+            Roblox Projects
+        </div>
+    </a>
+
+    <a href="https://example.com" target="_blank">
+        <div class="card">
+            <i class="fa-solid fa-globe"></i>
+            Web Development
+        </div>
+    </a>
+
+    <a href="https://example.com/services" target="_blank">
+        <div class="card">
+            <i class="fa-solid fa-layer-group"></i>
+            Digital Services
+        </div>
+    </a>
+
+    <!-- CONTACT -->
+    <div class="section-title">CONTACT</div>
+
+    <a href="https://discord.gg/YOURSERVER" target="_blank">
+        <div class="card">
+            <i class="fa-brands fa-discord"></i>
+            Join Discord
+        </div>
+    </a>
+
+    <div class="footer">
+        © 2026 Created by Clarence
+    </div>
+
+</div>
+
+<script>
+
+/* PARTICLE BACKGROUND */
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particlesArray = [];
+
+class Particle{
+    constructor(){
+        this.x=Math.random()*canvas.width;
+        this.y=Math.random()*canvas.height;
+        this.size=Math.random()*2;
+        this.speedY=Math.random()*0.5+0.2;
+    }
+    update(){
+        this.y+=this.speedY;
+        if(this.y>canvas.height){
+            this.y=0;
+            this.x=Math.random()*canvas.width;
+        }
+    }
+    draw(){
+        ctx.fillStyle="rgba(255,255,255,0.7)";
+        ctx.beginPath();
+        ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+        ctx.fill();
+    }
+}
+
+function init(){
+    for(let i=0;i<120;i++){
+        particlesArray.push(new Particle());
+    }
+}
+
+function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particlesArray.forEach(p=>{
+        p.update();
+        p.draw();
+    });
+    requestAnimationFrame(animate);
+}
+
+init();
+animate();
+
+</script>
+
+</body>
+</html>
